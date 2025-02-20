@@ -1,101 +1,125 @@
-import Image from "next/image";
+"use client";
+import Head from 'next/head';
+import { motion } from 'framer-motion';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import Lenis from "@studio-freight/lenis";
+
+const FullPageBackground = () => {
+  const mountRef = useRef(null);
+
+  useEffect(() => {
+    let renderer, scene, camera, particleSystem;
+
+    const init = () => {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (mountRef.current) {
+        mountRef.current.innerHTML = "";
+        mountRef.current.appendChild(renderer.domElement);
+      }
+
+      const particleCount = 3000;
+      const particlesGeometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 15;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+      }
+
+      particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.05,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+      });
+
+      particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particleSystem);
+      camera.position.z = 5;
+      animate();
+    };
+
+    const animate = () => {
+      particleSystem.rotation.y += 0.0005;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    };
+
+    init();
+    return () => renderer.dispose();
+  }, []);
+
+  return <div ref={mountRef} className="fixed inset-0 pointer-events-auto" />;
+};
+
+const MagneticText = ({ children }) => (
+  <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 300 }}>
+    {children}
+  </motion.div>
+);
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  useEffect(() => {
+    const lenis = new Lenis();
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+  }, []);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  return (
+    <div className="font-sans text-white relative overflow-hidden bg-black">
+      <Head>
+        <title>Mi Portfolio - Manuel Wald</title>
+        <meta name="description" content="Portfolio de desarrollo web con efectos visuales y animaciones." />
+      </Head>
+      <FullPageBackground />
+      <nav className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 flex space-x-6 text-lg font-light">
+        <MagneticText><a href="#about">Sobre mí</a></MagneticText>
+        <MagneticText><a href="#projects">Proyectos</a></MagneticText>
+        <MagneticText><a href="#contact">Contacto</a></MagneticText>
+      </nav>
+      <section className="relative h-screen flex flex-col justify-center items-center text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="text-7xl font-extrabold text-white drop-shadow-md"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Bienvenido a mi Portfolio
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5 }}
+          className="mt-4 text-xl font-light"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Explorando nuevas formas de hacer la web más interactiva y divertida.
+        </motion.p>
+      </section>
+      <section id="about" className="py-20 text-center">
+        <h2 className="text-5xl font-bold">Sobre mí</h2>
+        <p className="text-lg mt-4 max-w-3xl mx-auto">
+          Soy Manuel Wald Katz, estudiante de Ciencias de la Computación en la Universidad de Buenos Aires. Tengo experiencia en desarrollo web, enseñanza y producción audiovisual.
+        </p>
+      </section>
+      <section id="projects" className="py-20 text-center">
+        <h2 className="text-5xl font-bold">Proyectos</h2>
+        <p className="text-lg mt-4">Puedes ver mis proyectos en mi <a href="https://github.com/wald16" className="text-blue-400">GitHub</a>.</p>
+      </section>
+      <section id="contact" className="py-20 text-center">
+        <h2 className="text-5xl font-bold">Contacto</h2>
+        <p className="text-lg mt-4">Email: <a href="mailto:manuwald16@gmail.com" className="text-blue-400">manuwald16@gmail.com</a></p>
+      </section>
     </div>
   );
 }
