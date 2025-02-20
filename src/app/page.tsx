@@ -34,7 +34,7 @@ const FullPageBackground = () => {
       particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
       const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.05,
+        size: 0.07,
         color: 0xffffff,
         transparent: true,
         opacity: 0.5,
@@ -65,6 +65,11 @@ const MagneticText = ({ children }) => (
     {children}
   </motion.div>
 );
+const projects = [
+  { title: "Proyecto 1", description: "Descripción del proyecto 1", image: "https://via.placeholder.com/400" },
+  { title: "Proyecto 2", description: "Descripción del proyecto 2", image: "https://via.placeholder.com/400" },
+  { title: "Proyecto 3", description: "Descripción del proyecto 3", image: "https://via.placeholder.com/400" }
+];
 
 export default function Home() {
   useEffect(() => {
@@ -114,7 +119,21 @@ export default function Home() {
       </section>
       <section id="projects" className="py-20 text-center">
         <h2 className="text-5xl font-bold">Proyectos</h2>
-        <p className="text-lg mt-4">Puedes ver mis proyectos en mi <a href="https://github.com/wald16" className="text-blue-400">GitHub</a>.</p>
+        <div className="mt-10 flex flex-col items-center relative space-y-10">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              className="relative flex flex-col items-center text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <img src={project.image} alt={project.title} className="w-80 h-auto rounded-lg shadow-lg" />
+              <h3 className="text-2xl font-bold mt-4">{project.title}</h3>
+              <p className="text-lg mt-2 max-w-md text-center">{project.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </section>
       <section id="contact" className="py-20 text-center">
         <h2 className="text-5xl font-bold">Contacto</h2>
