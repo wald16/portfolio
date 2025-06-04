@@ -4,7 +4,7 @@ export interface Project {
     description: string;
     image: string;
     tags: string[];
-    link: string;
+    link?: string;
     githubLink: string;
 }
 
@@ -12,7 +12,7 @@ export const projects: Project[] = [
     {
         id: 'project-1',
         title: 'Manage Your Money',
-        description: 'A creative web application featuring interactive 3D elements and smooth animations.',
+        description: 'A web application for managing personal finances',
         image: '/projects/panel.png',
         tags: ['JavaScript', 'HTML', 'CSS'],
         link: 'https://manage-your-money-dusky.vercel.app/',
@@ -20,21 +20,20 @@ export const projects: Project[] = [
     },
     {
         id: 'project-2',
-        title: 'E-commerce Platform',
-        description: 'A modern e-commerce solution with real-time inventory and payment processing.',
-        image: '/placeholders/project2.svg',
-        tags: ['Next.js', 'Node.js', 'MongoDB'],
-        link: 'https://example.com/project2',
-        githubLink: 'https://github.com/wald16/ManageYourMoney',
+        title: 'Dog Game',
+        description: 'A cute and fun game to train Mora, a mischievous little dog, through interactive mini-games.',
+        image: '/projects/mora.png',
+        tags: ['JavaScript', 'HTML', 'CSS'],
+        githubLink: 'https://github.com/wald16/dog-game',
     },
     {
         id: 'project-3',
         title: 'Creative Portfolio',
-        description: 'A unique portfolio website showcasing creative work with interactive elements.',
-        image: '/placeholders/project3.svg',
-        tags: ['React', 'Framer Motion', 'GSAP'],
-        link: 'https://example.com/project3',
-        githubLink: 'https://github.com/wald16/ManageYourMoney',
+        description: 'A modern web application that provides an interactive and visually appealing interface for listening to downloaded music.',
+        image: '/projects/music.png',
+        tags: ['TypeScript', 'JavaScript', 'Tailwind CSS', 'Next.js'],
+        link: 'https://audio-visualizer-flame.vercel.app/',
+        githubLink: 'https://github.com/wald16/AudioVisualizer',
     },
     // Add more projects as needed
 ]; 
