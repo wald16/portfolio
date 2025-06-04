@@ -19,7 +19,7 @@ const ProjectCard = ({ title, description, image, tags, link, githubLink }: Proj
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="group relative bg-black/50 rounded-lg overflow-hidden"
+            className="group relative bg-black/50 rounded-lg overflow-hidden hover:bg-black/60 transition-colors duration-300"
         >
             {/* Image Container */}
             <div className="relative h-64 w-full overflow-hidden">
@@ -27,9 +27,8 @@ const ProjectCard = ({ title, description, image, tags, link, githubLink }: Proj
                     src={image}
                     alt={title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
 
             {/* Content */}
