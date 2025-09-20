@@ -14,7 +14,7 @@ export const projects: Project[] = [
         title: 'Manage Your Money',
         description: 'A web application for managing personal finances',
         image: '/projects/panel.png',
-        tags: ['JavaScript', 'HTML', 'CSS'],
+        tags: ['JavaScript', 'PostgreSQL', 'HTML', 'CSS'],
         link: 'https://manage-your-money-dusky.vercel.app/',
         githubLink: 'https://github.com/wald16/ManageYourMoney',
     },
