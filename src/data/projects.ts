@@ -22,6 +22,16 @@ export const projects: Project[] = [
         githubLink: 'https://github.com/wald16/app-daltonismo',
     },
         {
+    id: 'project-brava',
+    title: 'Brava — Comunicación Visual',
+    description: 'Portfolio website for a visual communication agency — filterable project grid, modal gallery with image and video support, and scroll animations.',
+    descriptionEs: 'Sitio portfolio para una agencia de comunicación visual — grilla de proyectos con filtros, galería modal con imágenes y video, y animaciones al scroll.',
+    image: '/projects/brava.png',
+    tags: ['Next.js', 'TypeScript', 'React', 'SCSS'],
+    link: 'https://agenciabrava.com.ar',
+    githubLink: 'https://github.com/wald16/javo-web-page',
+},
+        {
         id: 'project-2',
         title: 'Homelab Infrastructure',
         description: 'A self-hosted home server running on Ubuntu Linux — containerized services with Docker, reverse proxy with Nginx, secure remote access via WireGuard, and a custom resource monitoring dashboard.',
@@ -58,15 +68,5 @@ export const projects: Project[] = [
         tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Web Audio API'],
         link: 'https://audio-visualizer-flame.vercel.app/',
         githubLink: 'https://github.com/wald16/AudioVisualizer',
-    },
-        {
-        id: 'project-6',
-        title: 'Manage Your Money',
-        description: 'A web application for managing personal finances — track expenses, set budgets, and visualize spending habits.',
-        descriptionEs: 'Aplicación web para gestionar finanzas personales — registrá gastos, establecé presupuestos y visualizá tus hábitos de consumo.',
-        image: '/projects/panel.png',
-        tags: ['JavaScript', 'PostgreSQL', 'HTML', 'CSS'],
-        link: 'https://manage-your-money-dusky.vercel.app/',
-        githubLink: 'https://github.com/wald16/ManageYourMoney',
     }
 ];
