@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Fira_Code } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
+    weight: ["400", "500", "600"],
     variable: "--font-space-grotesk",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const firaCode = Fira_Code({
     subsets: ["latin"],
-    variable: "--font-jetbrains-mono",
+    weight: ["400", "500", "600"],
+    variable: "--font-fira-code",
 });
 
 export const metadata: Metadata = {
-    title: "Portfolio | Creative Developer",
-    description: "An immersive portfolio showcasing creative development work",
+    title: "sysadmin@ar-bue-1",
+    description: "Manuel Wald — DevOps / Sysadmin engineer. Infraestructura crítica, CI/CD y homelab propio.",
 };
 
 export default function RootLayout({
@@ -24,11 +25,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="scroll-smooth">
-            <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-black text-white antialiased cursor-none`}>
-                <CustomCursor />
+        <html lang="es">
+            <body className={`${spaceGrotesk.variable} ${firaCode.variable}`}>
                 {children}
             </body>
         </html>
     );
-} 
+}
